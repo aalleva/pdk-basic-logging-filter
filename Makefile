@@ -66,7 +66,7 @@ release: ## Publish a release version
 	else \
 		echo "Using specified GROUP_ID: $(GROUP_ID)"; \
 	fi; \
-	sed -i '' "s/group_id = \".*\"/group_id = \"$$GROUP_ID\"/" Cargo.toml; \
+	sed -i "s/group_id = \".*\"/group_id = \"$$GROUP_ID\"/" Cargo.toml; \
 	make build; \
 	anypoint-cli-v4 pdk policy-project release --binary-path $(TARGET_DIR)/$(CRATE_NAME).wasm --implementation-gcl-path $(TARGET_DIR)/$(CRATE_NAME)_implementation.yaml
 	git checkout -- Cargo.toml
