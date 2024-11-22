@@ -58,8 +58,18 @@ publish: build ## Publish a development version of the policy
 	anypoint-cli-v4 pdk policy-project publish --binary-path $(TARGET_DIR)/$(CRATE_NAME).wasm --implementation-gcl-path $(TARGET_DIR)/$(CRATE_NAME)_implementation.yaml
 
 .PHONY: release
-release: build ## Publish a release version
+release: ## Publish a release version
+	@GROUP_ID_FROM_FILE=$$(grep 'group_id' Cargo.toml | sed -E 's/.*group_id = "(.*)".*/\1/'); \
+	if [ -z "$(GROUP_ID)" ]; then \
+		echo "GROUP_ID is not set. Using default from Cargo.toml: $$GROUP_ID_FROM_FILE"; \
+		GROUP_ID=$$GROUP_ID_FROM_FILE; \
+	else \
+		echo "Using specified GROUP_ID: $(GROUP_ID)"; \
+	fi; \
+	sed -i '' "s/group_id = \".*\"/group_id = \"$$GROUP_ID\"/" Cargo.toml; \
+	make build; \
 	anypoint-cli-v4 pdk policy-project release --binary-path $(TARGET_DIR)/$(CRATE_NAME).wasm --implementation-gcl-path $(TARGET_DIR)/$(CRATE_NAME)_implementation.yaml
+	git checkout -- Cargo.toml
 
 .PHONY: build-asset-files
 build-asset-files: $(DEFINITION_SRC_GCL_PATH)
