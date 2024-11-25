@@ -15,7 +15,7 @@ async fn request_filter(request_state: RequestState, _config: &Config) {
     
     let request_headers = headers_state.handler().headers();
     if !request_headers.is_empty() {
-        logger::info!("Message received v2.1.0");
+        logger::info!("Message received v2.1.1-1");
         return;
     }
     
