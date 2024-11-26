@@ -1,7 +1,7 @@
 # Copyright 2023 Salesforce, Inc. All rights reserved.
 [package]
 name = "pdk_basic_logging_filter"
-version = "2.2.0"
+version = "2.2.1"
 rust-version = "1.74.0"
 edition = "2018"
 
