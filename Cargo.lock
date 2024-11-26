@@ -2530,7 +2530,7 @@ dependencies = [
 
 [[package]]
 name = "pdk_basic_logging_filter"
-version = "2.2.1"
+version = "2.3.0"
 dependencies = [
  "anyhow",
  "httpmock",
